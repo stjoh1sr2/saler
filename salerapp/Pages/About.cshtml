@@ -1,0 +1,73 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="container col-xxl-8 px-4 py-5">
+	<div class="row flex-lg-row-reverse align-items-center g-5 py-5" data-bs-ride="carousel">
+		<div class="col-10 col-sm-8 col-lg-6">
+			<div id="carouselExample" class="carousel slide">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="@Url.Content("~/Images/ss1.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss2.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss3.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss4.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss5.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss7.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss8.png")" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="@Url.Content("~/Images/ss9.png")" class="d-block w-100" alt="...">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+				<p class="text-center"><i>Concept user interface designs</i></p>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<h1 class="display-5 fw-bold lh-1 mb-3">About Saler</h1>
+			<p class="lead">Our project, Garage Saler, is a website for garage sale hosts and potential customers. Users will be able to go on the website to view different garage sale listings. These listings will have information such as the address, general categories of items (clothing, movies, etc.), as well as pictures of the sale. This project will also allow for users to host ads of their own garage sales by adding information about their sale to be viewed by others on the website. When viewing available listings, users can add them to a cart feature, from which the website can generate the most efficient route for the user to travel to each of the sales they chose. Through all these features, we aim to modernize the experience of garage sale hunting.</p>
+			<p class="lead"><strong>Advisors:</strong> Dr. Alex Redei, Dr. Patrick Kinnicutt, and Dr. Patrick Seeling serve or served as advisors for this project.</p>
+		</div>
+	</div>
+</div>
+<div class="container px-4 py-5" id="featured-3">
+	<h2 class="pb-2 border-bottom">More Information</h2>
+	<div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+		<div class="feature col">
+			<h3 class="fs-2">Team</h3>
+			<p>For Spring 2023's CPS 498: Senior Design II course at Central Michigan University, a team of computer science students has been assembled to make Saler a reality.</p>
+			<a href="@Url.Content("/Team")" class="icon-link d-inline-flex align-items-center">
+				Meet the team
+			</a>
+		</div>
+		<div class="feature col">
+			<h3 class="fs-2">Project Resources</h3>
+			<p>If you want to learn more about what resources we plan on using for this project, we have compiled some of the books and articles that we intent to consult in creating the Saler experience.</p>
+			<a href="@Url.Content("/Resources")" class="icon-link d-inline-flex align-items-center">
+				See resources
+			</a>
+		</div>
+	</div>
+</div>

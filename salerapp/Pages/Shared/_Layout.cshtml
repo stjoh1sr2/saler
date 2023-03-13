@@ -1,0 +1,85 @@
+﻿@{
+    var PageTitle = (String)ViewData["Title"] ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/Images/favicon.ico")">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/salerapp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="p-3 text-white" style="background-color: #023D96;">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 2%"></img>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a href="@Url.Content("~/")" class="nav-link px-2 text-white">
+                            @{
+                                if (String.Equals(PageTitle, "Saler"))
+                                {
+                                    <text><strong>Home</strong></text>
+                                }
+                                else
+                                {
+                                    <text>Home</text>
+                                }
+                            }
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Content("~/About")" class="nav-link px-2 text-white">
+                            @{
+                                if (String.Equals(PageTitle, "About"))
+                                {
+                                    <text><strong>About</strong></text>
+                                }
+                                else
+                                {
+                                    <text>About</text>
+                                }
+                            }
+                        </a>
+                    </li>
+                    <li>
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
+                </form>
+
+                <div class="text-end" id="loggedout-panel">
+                    <button type="button" class="btn btn-outline-light me-2" @(String.Equals(PageTitle, "Login") ? "disabled" : String.Empty) onclick="document.location.href='/Login';">Login</button>
+                    <button type="button" class="btn btn-warning" @(String.Equals(PageTitle, "Register") ? "disabled" : String.Empty) onclick="document.location.href='/Register';">Sign-up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="mb-3 mb-md-0 text-muted">© 2023</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

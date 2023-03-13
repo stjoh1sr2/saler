@@ -1,0 +1,29 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<main class="form-signin w-100 m-auto text-center">
+	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;">
+		<img class="mb-4" src="@Url.Content("~/Images/saler-boat.png")" alt="" width="72">
+		<h1 class="h3 mb-3 fw-normal">Sign In</h1>
+
+		<div class="form-floating" style="margin: 5px;">
+			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+			<label for="floatingInput">Email address</label>
+		</div>
+		<div class="form-floating" style="margin: 5px;">
+			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+			<label for="floatingPassword">Password</label>
+		</div>
+
+		<div class="checkbox mb-3">
+			<label>
+				<input type="checkbox" value="remember-me"> Remember me
+			</label>
+		</div>
+		<button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+		<small class="text-muted">Not registered? <a href="@Url.Content("~/Register")">Sign up today to get started</a></small>
+	</form>
+</main>

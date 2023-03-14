@@ -1,2 +1,1 @@
-# Saler
-https://stjoh1sr2.github.io/saler/ (concept website)
+Concept site: https://salerapp20230313191534.azurewebsites.net

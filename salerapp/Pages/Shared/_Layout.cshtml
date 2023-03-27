@@ -49,6 +49,19 @@
                         </a>
                     </li>
                     <li>
+                        <a href="@Url.Content("~/Explore")" class="nav-link px-2 text-white">
+                            @{
+                                if (String.Equals(PageTitle, "Explore Listings"))
+                                {
+                                    <text><strong>Explore</strong></text>
+                                }
+                                else
+                                {
+                                    <text>Explore</text>
+                                }
+                            }
+                        </a>
+                    </li>
                 </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

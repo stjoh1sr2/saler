@@ -2,6 +2,7 @@
     var PageTitle = (String)ViewData["Title"] ?? "";
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,16 +63,44 @@
                             }
                         </a>
                     </li>
+                    <li>
+                        <a href="@Url.Content("~/AddListing")" class="nav-link px-2 text-white">
+                            @{
+                                if (String.Equals(PageTitle, "Add Listing"))
+                                {
+                                    <text><strong>Add Listing</strong></text>
+                                }
+                                else
+                                {
+                                    <text>Add Listing</text>
+                                }
+                            }
+                        </a>
+                    </li>
                 </ul>
-
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                     <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
                 </form>
-
-                <div class="text-end" id="loggedout-panel">
-                    <button type="button" class="btn btn-outline-light me-2" @(String.Equals(PageTitle, "Login") ? "disabled" : String.Empty) onclick="document.location.href='/Login';">Login</button>
-                    <button type="button" class="btn btn-warning" @(String.Equals(PageTitle, "Register") ? "disabled" : String.Empty) onclick="document.location.href='/Register';">Sign-up</button>
-                </div>
+                @{
+                    if (UserManagementHelper.GlobalUser.LoggedIn)
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                @UserManagementHelper.GlobalUser.UserName
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" style="color: black;" href="#">Log Out</a></li>
+                            </ul>
+                        </div>
+                    } 
+                    else
+                    {
+                        <div class="text-end" id="loggedout-panel">
+                            <button type="button" class="btn btn-outline-light me-2" @(String.Equals(PageTitle, "Login") ? "disabled" : String.Empty) onclick="document.location.href='/Login';">Login</button>
+                            <button type="button" class="btn btn-warning" @(String.Equals(PageTitle, "Register") ? "disabled" : String.Empty) onclick="document.location.href='/Register';">Sign-up</button>
+                        </div>
+                    }
+                }
             </div>
         </div>
     </header>

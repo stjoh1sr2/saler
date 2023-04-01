@@ -1,20 +1,28 @@
 ﻿@page
-
+@model LoginModel
 @{
     ViewData["Title"] = "Login";
 }
 
+<!-- Warning messages -->
+@foreach (var warning in Model.warnings)
+{
+	<div class="alert alert-danger" role="alert" style="margin: 10px; margin-left: 27.5%; margin-right: 27.5%;">
+		@warning
+	</div>
+}
+
 <main class="form-signin w-100 m-auto text-center">
-	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;">
+	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;" method="post">
 		<img class="mb-4" src="@Url.Content("~/Images/saler-boat.png")" alt="" width="72">
 		<h1 class="h3 mb-3 fw-normal">Sign In</h1>
 
 		<div class="form-floating" style="margin: 5px;">
-			<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-			<label for="floatingInput">Email address</label>
+			@(Html.TextBoxFor(t => t.identification, new { @type = "text", @class = "form-control", @id = "floatingInput", @required = "true" }))
+			<label for="floatingInput">Username / Email Address</label>
 		</div>
 		<div class="form-floating" style="margin: 5px;">
-			<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+			@(Html.TextBoxFor(t => t.password, new { @type = "password", @class = "form-control", @id = "floatingInput", @required = "true" }))
 			<label for="floatingPassword">Password</label>
 		</div>
 

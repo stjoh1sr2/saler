@@ -1,33 +1,42 @@
 ﻿@page
+@model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+	ViewData["Title"] = "Register";
 }
 
-<main class="form-signin w-100 m-auto text-center">
-	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;">
+<!-- Warning messages -->
+@foreach (var warning in Model.warnings)
+{
+	<div class="alert alert-danger" role="alert" style="margin: 10px; margin-left: 27.5%; margin-right: 27.5%;">
+		@warning
+	</div>
+}
+
+<!-- Main registration panel -->
+<main class="form w-100 m-auto text-center">
+	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;" method="post">
 		<img class="mb-4" src="@Url.Content("~/Images/saler-boat.png")" alt="" width="72">
 		<h1 class="h3 mb-3 fw-normal">Sign-up</h1>
 
-
 		<div class="form-floating" style="margin: 5px;">
-			<input type="email" class="form-control" id="floatingInput">
-			<label for="floatingInput">Username *</label>
+			@(Html.TextBoxFor(t => t.user.UserName, new {@type = "text", @class = "form-control", @id = "floatingInput", @required = "true"}))
+			<label for="username">Username *</label>
 		</div>
 		<div class="form-floating" style="margin: 5px;">
-			<input type="email" class="form-control" id="floatingInput">
-			<label for="floatingInput">Email address *</label>
+			@(Html.TextBoxFor(t => t.user.Email, new { @type = "email", @class = "form-control", @id = "floatingInput", @required = "true" }))
+			<label for="email">Email address *</label>
 		</div>
 		<div class="form-floating" style="margin: 5px;">
-			<input type="email" class="form-control" id="floatingInput">
-			<label for="floatingInput">Confirm email address *</label>
+			@(Html.TextBoxFor(t => t.validationEmail, new { @type = "email", @class = "form-control", @id = "floatingInput", @required = "true" }))
+			<label for="email">Confirm email address *</label>
 		</div>
 		<div class="form-floating" style="margin: 5px;">
-			<input type="password" class="form-control" id="floatingPassword">
-			<label for="floatingPassword">Password *</label>
+			@(Html.TextBoxFor(t => t.user.Password, new { @type = "password", @class = "form-control", @id = "floatingPassword", @required = "true" }))
+			<label for="password">Password *</label>
 		</div>
 		<div class="form-floating" style="margin: 5px;">
-			<input type="password" class="form-control" id="floatingPassword">
-			<label for="floatingPassword">Confirm password *</label>
+			@(Html.TextBoxFor(t => t.validationPassword, new { @type = "password", @class = "form-control", @id = "floatingPassword", @required = "true" }))
+			<label for="password">Confirm password *</label>
 		</div>
 
 		<button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>

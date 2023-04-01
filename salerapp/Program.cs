@@ -1,9 +1,14 @@
-//using System;
-//using Microsoft.Data.SqlClient;
-//using System.Text;
-
+using System;
+using Microsoft.Data.SqlClient;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using salerapp.Context;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<SalerContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("SalerContext")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -22,15 +27,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapRazorPages();
 
 app.Run();
-
-
-
 
 // namespace salerapp
 // {

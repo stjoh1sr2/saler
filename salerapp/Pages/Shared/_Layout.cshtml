@@ -89,7 +89,7 @@
                                 @UserManagementHelper.GlobalUser.UserName
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" style="color: black;" href="#">Log Out</a></li>
+                                <li>@Html.ActionLink("Log Out", "LogOut", "Header", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
                             </ul>
                         </div>
                     } 

@@ -12,6 +12,7 @@
 	</div>
 }
 
+<!-- Main form -->
 <main class="form-signin w-100 m-auto text-center">
 	<form style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;" method="post">
 		<img class="mb-4" src="@Url.Content("~/Images/saler-boat.png")" alt="" width="72">
@@ -24,12 +25,6 @@
 		<div class="form-floating" style="margin: 5px;">
 			@(Html.TextBoxFor(t => t.password, new { @type = "password", @class = "form-control", @id = "floatingInput", @required = "true" }))
 			<label for="floatingPassword">Password</label>
-		</div>
-
-		<div class="checkbox mb-3">
-			<label>
-				<input type="checkbox" value="remember-me"> Remember me
-			</label>
 		</div>
 		<button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 		<small class="text-muted">Not registered? <a href="@Url.Content("~/Register")">Sign up today to get started</a></small>

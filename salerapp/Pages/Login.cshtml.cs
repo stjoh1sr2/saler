@@ -30,12 +30,18 @@ namespace salerapp.Pages
                         UserManagementHelper.GlobalUser.LoggedIn = true;
 
                         return Redirect("~/");
+                    } else
+                    {
+                        warnings.Add("Your password was incorrect. Please try again.");
                     }
+                } else
+                {
+                    warnings.Add("System error occurred. Please try again later.");
                 }
             }
             else
             {
-                warnings.Add("Incorrect password or username.");
+                warnings.Add("There is no account with this username or email.");
             }
 
             return null;

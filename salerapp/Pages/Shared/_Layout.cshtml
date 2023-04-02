@@ -63,20 +63,6 @@
                             }
                         </a>
                     </li>
-                    <li>
-                        <a href="@Url.Content("~/AddListing")" class="nav-link px-2 text-white">
-                            @{
-                                if (String.Equals(PageTitle, "Add Listing"))
-                                {
-                                    <text><strong>Add Listing</strong></text>
-                                }
-                                else
-                                {
-                                    <text>Add Listing</text>
-                                }
-                            }
-                        </a>
-                    </li>
                 </ul>
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                     <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
@@ -89,6 +75,8 @@
                                 @UserManagementHelper.GlobalUser.UserName
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")")>Add Listing</a></li>
+                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/ViewMyListings")" )>View My Listings</a></li>
                                 <li>@Html.ActionLink("Log Out", "LogOut", "Header", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
                             </ul>
                         </div>

@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.listings .card {
+    outline-width: 1px;
+    outline-color: #ededed;
+    outline-style: groove;
+}
+
+    .listings .card:nth-child(even) {
+        background-color: #023d96;
+        color: white;
+    }

@@ -1,0 +1,30 @@
+﻿@page
+@model ViewMyListingModel
+@{
+    ViewData["Title"] = "My Listings";
+    Model.LoadListings();
+}
+
+<!-- Main form -->
+<main class="form w-100 m-auto text-center container">
+    <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
+        <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">My Listings</h1>
+
+        <div class="listings">
+        @foreach(Listing listing in Model.listings)
+        {
+            <div class="card mb-3" style="text-align:left;">
+                <h5 class="card-title mt-2" style="margin-left: 10px;">
+                    @listing.StartDate.ToString() - @listing.EndDate.ToString()
+                </h5>
+                <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
+                    @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                </h6>
+                <div class="card-body">
+                    <strong>Description:</strong> @listing.Description
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</main>

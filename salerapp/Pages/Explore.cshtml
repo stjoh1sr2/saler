@@ -1,7 +1,39 @@
 ﻿@page
-
+@model ExploreModel
 @{
     ViewData["Title"] = "Explore Listings";
+    Model.LoadListings();
 }
 
-<p><i>This page is under construction.</i></p>
+<main class="form w-100 m-auto text-center container">
+    <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
+        <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Explore Listings</h1>
+
+        <div class="listings">
+            @foreach (Listing listing in Model.listings.Take(20))
+            {
+                <div class="card mb-3" style="text-align:left;">
+                    <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="card-title mt-2" style="margin-left: 10px;">
+                            @listing.StartDate.ToString() - @listing.EndDate.ToString()
+                        </h5>
+                    </div>
+                    <div class="col-sm-5" style="text-align: right;">
+                        <h6 class="card-subtitle mt-2">
+                            Posted by @Model.userNames.GetValueOrDefault(listing.ListingId)
+                        </h6>
+                    </div>
+                    
+                    </div>
+                    <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
+                        @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                    </h6>
+                    <div class="card-body">
+                        <strong>Description:</strong> @listing.Description
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>

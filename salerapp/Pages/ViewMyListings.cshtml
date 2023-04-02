@@ -25,6 +25,12 @@
                 </div>
             </div>
         }
+            @if(Model.listings.Count() <= 0)
+            {
+                <h5 style="font-style: italic; margin-top: 50px; margin-bottom: 20px;">
+                    No listings found...<a href="@Url.Content("~/AddListing")">add one today</a>.
+                </h5>
+            }
         </div>
     </div>
 </main>

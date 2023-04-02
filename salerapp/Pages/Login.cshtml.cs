@@ -29,7 +29,7 @@ namespace salerapp.Pages
                         UserManagementHelper.GlobalUser = tempUser;
                         UserManagementHelper.GlobalUser.LoggedIn = true;
 
-                        return Redirect("~/");
+                        return Redirect("~/ViewMyListings");
                     } else
                     {
                         warnings.Add("Your password was incorrect. Please try again.");

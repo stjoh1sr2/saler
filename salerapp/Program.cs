@@ -13,6 +13,18 @@ builder.Services.AddDbContext<SalerContext>(options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// Add session support
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(12);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +41,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.UseEndpoints(endpoints =>
 {

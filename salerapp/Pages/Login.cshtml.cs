@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using salerapp.Context;
 using salerapp.Helpers;
 using salerapp.Models;
@@ -26,8 +28,8 @@ namespace salerapp.Pages
                     if (String.Equals(EncryptionDecryptionHelper.Decrypt(tempUser.Password), password))
                     {
                         // Log in user
-                        UserManagementHelper.GlobalUser = tempUser;
-                        UserManagementHelper.GlobalUser.LoggedIn = true;
+                        tempUser.LoggedIn = true;
+                        HttpContext.Session.SetString("_User", JsonConvert.SerializeObject(tempUser));
 
                         return Redirect("~/ViewMyListings");
                     } else

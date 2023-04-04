@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using salerapp.Context;
 using salerapp.Helpers;
 using salerapp.Models;
@@ -19,13 +20,13 @@ namespace salerapp.Pages
         {
             if (listing != null)
             {
-                if (!UserManagementHelper.GlobalUser.LoggedIn)
+                if (HttpContext.Session.GetString("_User") is null)
                 {
                     warnings.Add("Please log in before submitting a listing.");
                     return null;
                 } else
                 {
-                    listing.PosterId = UserManagementHelper.GlobalUser.UserId;
+                    listing.PosterId = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId;
                     listing.PostDate = DateTime.Now;
                     db.Listings.Add(listing);
                     db.SaveChanges();

@@ -1,7 +1,12 @@
 ﻿@{
     var PageTitle = (String)ViewData["Title"] ?? "";
-}
+    var User = new User();
 
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+    {
+        User = JsonConvert.DeserializeObject<User>(HttpContextAccessor.HttpContext.Session.GetString("_User"));
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +24,6 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 2%"></img>
-
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a href="@Url.Content("~/")" class="nav-link px-2 text-white">
@@ -68,19 +72,19 @@
                     <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
                 </form>
                 @{
-                    if (UserManagementHelper.GlobalUser.LoggedIn)
+                    if (User.LoggedIn)
                     {
                         <div class="dropdown">
                             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                @UserManagementHelper.GlobalUser.UserName
+                                @User.UserName
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")")>Add Listing</a></li>
+                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
                                 <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/ViewMyListings")" )>View My Listings</a></li>
-                                <li>@Html.ActionLink("Log Out", "LogOut", "Header", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
+                                <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
                             </ul>
                         </div>
-                    } 
+                    }
                     else
                     {
                         <div class="text-end" id="loggedout-panel">

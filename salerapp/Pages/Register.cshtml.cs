@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using salerapp.Helpers;
 using static System.Net.Mime.MediaTypeNames;
 using System.Linq.Expressions;
+using salerapp.Controllers;
+using Newtonsoft.Json;
 
 namespace salerapp.Pages
 {
@@ -56,8 +58,8 @@ namespace salerapp.Pages
                 db.SaveChanges();
 
                 // Set user as logged in user
-                UserManagementHelper.GlobalUser = user;
-                UserManagementHelper.GlobalUser.LoggedIn = true;
+                user.LoggedIn = true;
+                HttpContext.Session.SetString("_User", JsonConvert.SerializeObject(user));
 
                 // Redirect to home page
                 return Redirect("~/");

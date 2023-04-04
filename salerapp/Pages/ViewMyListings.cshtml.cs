@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using salerapp.Context;
 using salerapp.Helpers;
 using salerapp.Models;
@@ -14,9 +15,10 @@ namespace salerapp.Pages
 
         public void LoadListings()
         {
-            if (UserManagementHelper.GlobalUser.LoggedIn)
+            if (HttpContext.Session.GetString("_User") is not null)
             {
-                listings = db.Listings.Where(l => l.PosterId == UserManagementHelper.GlobalUser.UserId)
+                int userId = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId;
+                listings = db.Listings.Where(l => l.PosterId == userId)
                     .OrderByDescending(l => l.EndDate);
             }
         }

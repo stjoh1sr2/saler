@@ -15,7 +15,7 @@
         {
             <div class="card mb-3" style="text-align:left;">
                 <h5 class="card-title mt-2" style="margin-left: 10px;">
-                    @listing.StartDate.ToString() - @listing.EndDate.ToString()
+                    @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
                 </h5>
                 <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
                     @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode

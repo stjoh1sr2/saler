@@ -1,0 +1,35 @@
+﻿@page
+@model ListingModel
+@{
+    ViewData["Title"] = "View Listing";
+    Listing listing = Model.LoadListing(Int32.Parse(Request.Query["id"].ToString()));
+    String userName = "";
+
+    if (listing is not null)
+    {
+        userName = Model.LoadUserName(listing.PosterId);
+    }
+}
+
+<!-- Main form -->
+<main class="form w-100 m-auto text-center container">
+    <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
+        @if (listing is not null)
+        {
+            <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">View Sale</h1>
+            <div style="text-align: left;">
+                <div style="margin-bottom: 5px;"><strong>Poster: </strong> @userName</div>
+                <div style="margin-bottom: 5px;"><strong>Listing Id: </strong> #@listing.ListingId</div>
+                <div style="margin-bottom: 5px;"><strong>Start Date: </strong> @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString()</div>
+                <div style="margin-bottom: 5px;"><strong>End Date: </strong> @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()</div>
+                <div style="margin-bottom: 20px;"><strong>Location: </strong> @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode</div>
+                <div><h4 style="margin-bottom: 10px;">Description</h4></div>
+                <div>@listing.Description</div>
+            </div>
+        }
+        else
+        {
+            <div>"Listing not found."</div>
+        }
+    </div>
+</main>

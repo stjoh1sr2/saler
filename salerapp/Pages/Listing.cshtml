@@ -16,15 +16,37 @@
     <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
         @if (listing is not null)
         {
-            <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">View Sale</h1>
+            <h1 class="display-6 fw-bold lh-1 mb-4 col-md-8" style="text-align:left;">View Sale</h1>
             <div style="text-align: left;">
-                <div style="margin-bottom: 5px;"><strong>Poster: </strong> @userName</div>
-                <div style="margin-bottom: 5px;"><strong>Listing Id: </strong> #@listing.ListingId</div>
-                <div style="margin-bottom: 5px;"><strong>Start Date: </strong> @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString()</div>
-                <div style="margin-bottom: 5px;"><strong>End Date: </strong> @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()</div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="margin-bottom: 5px;"><strong>Start Date: </strong> @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString()</div>
+                    </div>
+                    <div class="col-md-5" style="text-align: right;">
+                        <div style="margin-bottom: 5px;"><strong>Poster: </strong> @userName</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div style="margin-bottom: 5px;"><strong>End Date: </strong> @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()</div>
+                    </div>
+                    <div class="col-md-5" style="text-align: right;">
+                        <div style="margin-bottom: 5px;"><strong>Listing Id: </strong> #@listing.ListingId</div>
+                    </div>
+                </div>
+                
                 <div style="margin-bottom: 20px;"><strong>Location: </strong> @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode</div>
                 <div><h4 style="margin-bottom: 10px;">Description</h4></div>
                 <div>@listing.Description</div>
+                @if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+                {
+                    @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == listing.PosterId)
+                    {
+                        <div style="text-align: right; padding-top: 10px;">
+                            <a role="button" class="btn btn-dark" href="@Url.Content("~/editlisting?id=" + listing.ListingId)">Edit</a>
+                        </div>
+                    }
+                }
             </div>
         }
         else

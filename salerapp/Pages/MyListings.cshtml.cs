@@ -8,7 +8,7 @@ using salerapp.Models;
 
 namespace salerapp.Pages
 {
-    public class ViewMyListingModel: PageModel
+    public class MyListingsModel: PageModel
     {
         public SalerContext db = new SalerContext();
         public IEnumerable<Listing> listings;

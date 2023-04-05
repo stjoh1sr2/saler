@@ -2,7 +2,14 @@
 @model MyListingsModel
 @{
     ViewData["Title"] = "My Listings";
-    Model.LoadListings();
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+    {
+        Model.LoadListings();
+    } else
+    {
+        Response.Redirect("/");
+    }
+
 }
 
 <!-- Main form -->
@@ -11,25 +18,28 @@
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">My Listings</h1>
 
         <div class="listings">
-        @foreach(Listing listing in Model.listings)
-        {
-            <div class="card mb-3" style="text-align:left;">
-                <h5 class="card-title mt-2" style="margin-left: 10px;">
-                    @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
-                </h5>
-                <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
-                    @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
-                </h6>
-                <div class="card-body">
-                    <strong>Description:</strong> @listing.Description
-                </div>
-            </div>
-        }
-            @if(Model.listings.Count() <= 0)
+            @if (Model.listings is not null)
             {
-                <h5 style="font-style: italic; margin-top: 50px; margin-bottom: 20px;">
-                    No listings found...<a href="@Url.Content("~/AddListing")">add one today</a>.
-                </h5>
+                foreach (Listing listing in Model.listings)
+                {
+                    <div class="card mb-3" style="text-align:left;">
+                        <h5 class="card-title mt-2" style="margin-left: 10px;">
+                            @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
+                        </h5>
+                        <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
+                            @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                        </h6>
+                        <div class="card-body">
+                            <strong>Description:</strong> @listing.Description
+                        </div>
+                    </div>
+                }
+                @if (Model.listings.Count() <= 0)
+                {
+                    <h5 style="font-style: italic; margin-top: 50px; margin-bottom: 20px;">
+                        No listings found...<a href="@Url.Content("~/AddListing")">add one today</a>.
+                    </h5>
+                }
             }
         </div>
     </div>

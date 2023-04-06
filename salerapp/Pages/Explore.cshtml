@@ -10,7 +10,7 @@
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Explore Listings</h1>
 
         <div class="listings">
-            @foreach (Listing listing in Model.listings.Take(20))
+            @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
                 <div class="card mb-3" style="text-align:left;">
                     <div class="row">

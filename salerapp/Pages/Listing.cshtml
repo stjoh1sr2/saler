@@ -16,7 +16,13 @@
     <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
         @if (listing is not null)
         {
-            <h1 class="display-6 fw-bold lh-1 mb-4 col-md-8" style="text-align:left;">View Sale</h1>
+            <h1 class="display-6 fw-bold lh-1 mb-4 col-md-8" style="text-align:left;">
+                View Sale
+                @if (listing.IsHidden)
+                {
+                    <span class="badge bg-dark" style="font-size: 1rem; position: absolute; margin-top: 10px; margin-left: 10px;">Hidden</span>
+                }
+            </h1>
             <div style="text-align: left;">
                 <div class="row">
                     <div class="col-md-5">
@@ -34,15 +40,27 @@
                         <div style="margin-bottom: 5px;"><strong>Listing Id: </strong> #@listing.ListingId</div>
                     </div>
                 </div>
-                
+
                 <div style="margin-bottom: 20px;"><strong>Location: </strong> @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode</div>
-                <div><h4 style="margin-bottom: 10px;">Description</h4></div>
+                <div>
+                    <h4 style="margin-bottom: 10px;">
+                        Description
+                    </h4>
+                </div>
                 <div>@listing.Description</div>
                 @if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
                 {
                     @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == listing.PosterId)
                     {
                         <div style="text-align: right; padding-top: 10px;">
+                            @if (!listing.IsHidden)
+                            {
+                                @Html.ActionLink("Hide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Unhide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                            }
                             <a role="button" class="btn btn-dark" href="@Url.Content("~/editlisting?id=" + listing.ListingId)">Edit</a>
                         </div>
                     }

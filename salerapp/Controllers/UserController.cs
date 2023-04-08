@@ -11,7 +11,7 @@ namespace salerapp.Controllers
         {
             if (HttpContext.Session.GetString("_User") is not null)
             {
-                HttpContext.Session.SetString("_User", JsonConvert.SerializeObject(new User()));
+                HttpContext.Session.Remove("_User");
             }
 
             return Redirect("~/");

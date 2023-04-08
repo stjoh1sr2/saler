@@ -10,27 +10,37 @@
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Explore Listings</h1>
 
         <div class="listings">
-            @foreach (Listing listing in Model.listings.Take(20))
+            @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
                 <div class="card mb-3" style="text-align:left;">
                     <div class="row">
-                    <div class="col-sm-6">
-                        <h5 class="card-title mt-2" style="margin-left: 10px;">
+                        <div class="col-sm-6">
+                            <h5 class="card-title mt-2" style="margin-left: 10px;">
                                 @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
-                        </h5>
-                    </div>
-                    <div class="col-sm-5" style="text-align: right;">
-                        <h6 class="card-subtitle mt-2">
-                            Posted by @Model.userNames.GetValueOrDefault(listing.ListingId)
-                        </h6>
-                    </div>
-                    
+                            </h5>
+                        </div>
+                        <div class="col-sm-5" style="text-align: right;">
+                            <h6 class="card-subtitle mt-2">
+                                Posted by @Model.userNames.GetValueOrDefault(listing.ListingId)
+                            </h6>
+                        </div>
                     </div>
                     <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
                         @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
                     </h6>
                     <div class="card-body">
-                        <strong>Description:</strong> @listing.Description
+                        <strong>Description:</strong> 
+                        @if (listing.Description.Length > 500)
+                        {
+                            @string.Format("{0}{1}", listing.Description.Substring(0, 496), "...")
+                        }
+                        else
+                        {
+                            @listing.Description
+                        }
+                    </div>
+                    <div class="card-body" style="text-align: right; padding-top: 0rem;">
+                        <a role="button" class="btn btn-dark btn-sm" href="@Url.Content("~/listing?id=" + listing.ListingId)">View</a>
                     </div>
                 </div>
             }

@@ -2,6 +2,10 @@
 @model AddListingModel
 @{
     ViewData["Title"] = "Add Listing";
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is null)
+    {
+        Response.Redirect("/");
+    }
 }
 
 <!-- Warning messages -->

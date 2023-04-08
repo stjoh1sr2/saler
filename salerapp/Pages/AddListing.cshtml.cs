@@ -30,7 +30,7 @@ namespace salerapp.Pages
                     listing.PostDate = DateTime.Now;
                     db.Listings.Add(listing);
                     db.SaveChanges();
-                    return Redirect("~/");
+                    return Redirect("~/listing?id=" + listing.ListingId);
                 }
 
             } else

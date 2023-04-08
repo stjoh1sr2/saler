@@ -31,7 +31,7 @@ namespace salerapp.Pages
                         tempUser.LoggedIn = true;
                         HttpContext.Session.SetString("_User", JsonConvert.SerializeObject(tempUser));
 
-                        return Redirect("~/ViewMyListings");
+                        return Redirect("~/MyListings");
                     } else
                     {
                         warnings.Add("Your password was incorrect. Please try again.");

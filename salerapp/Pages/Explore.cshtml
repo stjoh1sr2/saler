@@ -12,6 +12,14 @@
         <div class="listings">
             @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
+                string formattedAddress = "";
+                try {
+                    formattedAddress = @listing.StreetAddress.Replace(' ', '+');
+                } catch(Exception ex) {
+                    // if it does not work, ie no address is given, it will default to the city
+                }
+                string website = "http://google.com/maps/dir/?api=1&destination=" + formattedAddress + "+" + @listing.City + "+" + @listing.State + "+" + @listing.ZIPCode;
+
                 <div class="card mb-3" style="text-align:left;">
                     <div class="row">
                         <div class="col-sm-6">
@@ -41,6 +49,7 @@
                     </div>
                     <div class="card-body" style="text-align: right; padding-top: 0rem;">
                         <a role="button" class="btn btn-dark btn-sm" href="@Url.Content("~/listing?id=" + listing.ListingId)">View</a>
+                        //<a role="button" class="btn btn-dark btn-sm" href="@website">Route</a>
                     </div>
                 </div>
             }

@@ -12,7 +12,7 @@
         <div class="listings">
             @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
-                string formattedAddress = ""; 
+                string formattedAddress = "";
                 try {
                     formattedAddress = @listing.StreetAddress.Replace(' ', '+');
                 } catch(Exception ex) {

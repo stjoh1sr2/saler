@@ -13,7 +13,7 @@
             @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
                 string formattedAddress = "";
-                try {
+                @try {
                     formattedAddress = @listing.StreetAddress.Replace(' ', '+');
                 } catch(Exception ex) {
                     // if it does not work, ie no address is given, it will default to the city

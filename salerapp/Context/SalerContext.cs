@@ -7,6 +7,7 @@ namespace salerapp.Context
     {
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }
+		public virtual DbSet<SavedListing> SavedListings { get; set; }
 
 		public SalerContext() { }
 		public SalerContext(DbContextOptions<SalerContext> options): base(options) { }

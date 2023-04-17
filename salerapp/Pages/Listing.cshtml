@@ -4,10 +4,20 @@
     ViewData["Title"] = "View Listing";
     Listing listing = Model.LoadListing(Int32.Parse(Request.Query["id"].ToString()));
     String userName = "";
+    Boolean isSaved = false;
 
     if (listing is not null)
     {
         userName = Model.LoadUserName(listing.PosterId);
+    }
+
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+    {
+        var userId = JsonConvert.DeserializeObject<User>(HttpContextAccessor.HttpContext.Session.GetString("_User")).UserId;
+        if (Model.db.SavedListings.Where(s => s.UserId == userId && s.ListingId == listing.ListingId).Count() > 0)
+        {
+            isSaved = true;
+        }
     }
 }
 
@@ -21,6 +31,13 @@
                 @if (listing.IsHidden)
                 {
                     <span class="badge bg-dark" style="font-size: 1rem; position: absolute; margin-top: 10px; margin-left: 10px;">Hidden</span>
+                }
+                @if (isSaved)
+                {
+                    
+                    {
+                        <span class="badge bg-success" style="font-size: 1rem; position: absolute; margin-top: 10px; margin-left: 10px;">Saved</span>
+                    }
                 }
             </h1>
             <div style="text-align: left;">
@@ -48,23 +65,45 @@
                     </h4>
                 </div>
                 <div>@listing.Description</div>
-                @if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
-                {
-                    @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == listing.PosterId)
-                    {
-                        <div style="text-align: right; padding-top: 10px;">
-                            @if (!listing.IsHidden)
+                <div class="row" style="margin-top: 50px;">
+                    <div class="col-md-6">
+                        @{
+                           int saveCount = Model.db.SavedListings.Where(s => s.ListingId == listing.ListingId).Count();
+                        }
+                        <i>Saved by @saveCount @(saveCount == 1 ? "saler" : "salers").</i>
+                    </div>
+                    <div class="col-md-6">
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+                        {
+                            @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == listing.PosterId)
                             {
-                                @Html.ActionLink("Hide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                <div style="text-align: right; padding-top: 10px;">
+                                    @if (!listing.IsHidden)
+                                    {
+                                        @Html.ActionLink("Hide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Unhide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                    }
+                                    <a role="button" class="btn btn-dark" href="@Url.Content("~/editlisting?id=" + listing.ListingId)">Edit</a>
+                                </div>
+                            }
+                            else if (!isSaved)
+                            {
+                                <div style="text-align: right; padding-top: 10px;">
+                                    @Html.ActionLink("Save", "SaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                </div>
                             }
                             else
                             {
-                                @Html.ActionLink("Unhide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                <div style="text-align: right; padding-top: 10px;">
+                                    @Html.ActionLink("Unsave", "UnsaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
+                                </div>
                             }
-                            <a role="button" class="btn btn-dark" href="@Url.Content("~/editlisting?id=" + listing.ListingId)">Edit</a>
-                        </div>
-                    }
-                }
+                        }
+                    </div>
+                </div>
             </div>
         }
         else

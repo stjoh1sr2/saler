@@ -23,7 +23,7 @@
     <header class="p-3 text-white" style="background-color: #023D96;">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="@Url.Content("~/")"><img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 2%"></a>
+                <a href="@Url.Content("~/")"><img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 20px;"></a>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a href="@Url.Content("~/")" class="nav-link px-2 text-white">
@@ -81,6 +81,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
                                 <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
+                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
                                 <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
                             </ul>
                         </div>

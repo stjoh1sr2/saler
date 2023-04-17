@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Explore Listings";
     Model.LoadListings();
+    int userId = -1;
+
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+    {
+        userId = JsonConvert.DeserializeObject<User>(HttpContextAccessor.HttpContext.Session.GetString("_User")).UserId;
+    }
 }
 
 <main class="form w-100 m-auto text-center container">
@@ -10,6 +16,7 @@
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Explore Listings</h1>
 
         <div class="listings">
+            <!-- Get 20 latest listings -->
             @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
             {
                 string formattedAddress = ""; 
@@ -25,6 +32,14 @@
                         <div class="col-sm-6">
                             <h5 class="card-title mt-2" style="margin-left: 10px;">
                                 @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
+                                @if (userId > 0)
+                                {
+                                    // Apply saved badge
+                                    if (Model.db.SavedListings.Where(s => s.UserId == userId && s.ListingId == listing.ListingId).Count() > 0)
+                                    {
+                                        <span class="badge bg-success">Saved</span>
+                                    }
+                                }
                             </h5>
                         </div>
                         <div class="col-sm-5" style="text-align: right;">
@@ -48,8 +63,18 @@
                         }
                     </div>
                     <div class="card-body" style="text-align: right; padding-top: 0rem;">
-                        <a role="button" class="btn btn-dark btn-sm" href="@Url.Content("~/listing?id=" + listing.ListingId)">View</a>
                         <a role="button" class="btn btn-dark btn-sm" href="@website">Route</a>
+                        @if(userId > 0) {
+                            // Check if listing is saved
+                            if (Model.db.SavedListings.Where(s => s.UserId == userId && s.ListingId == listing.ListingId).Count() > 0)
+                            {
+                                @Html.ActionLink("Unsave", "UnsaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark btn-sm", @role="button"})
+                            } else
+                            {
+                                @Html.ActionLink("Save", "SaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark btn-sm", @role="button"})
+                            }
+                        }
+                        <a role="button" class="btn btn-dark btn-sm" href="@Url.Content("~/listing?id=" + listing.ListingId)">View</a>
                     </div>
                 </div>
             }

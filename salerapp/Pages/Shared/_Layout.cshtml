@@ -1,6 +1,7 @@
 ﻿@{
     var PageTitle = (String)ViewData["Title"] ?? "";
     var User = new User();
+    var q = "";
 
     if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
     {
@@ -68,8 +69,8 @@
                         </a>
                     </li>
                 </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="@Url.Content("~/Search?" + q)">
+                    @Html.TextBoxFor(t => q, null, new { @type="search", @class="form-control form-control-dark", @placeholder="Search listings...", @ariaLabel="Search"})
                 </form>
                 @{
                     if (User.LoggedIn)

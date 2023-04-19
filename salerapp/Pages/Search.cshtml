@@ -20,8 +20,18 @@
         <div class="listings">
             @if (Model.listings.Count() > 0)
             {
-                <div style="margin: 10px; text-align: left;">
-                    <i>@Model.listings.Count() results found for "@query"</i>
+                <div style="margin-bottom: 15px; text-align: left;">
+                    @if (Model.listings.Count() == 1)
+                    {
+                        <i>Showing 1 of 1  result found for "@query"</i>
+                    } else if (Model.listings.Count() < 20)
+                    {
+                        <i>Showing @Model.listings.Count() of @Model.listings.Count() results found for "@query"</i>
+                    } else
+                    {
+                        <i>Showing 20 of @Model.listings.Count() results found for "@query"</i>
+                    }
+
                 </div>
                 <!-- Get 20 most relevant listings -->
                 @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))

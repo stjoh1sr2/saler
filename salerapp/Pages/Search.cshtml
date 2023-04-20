@@ -1,0 +1,126 @@
+﻿@page
+@model SearchModel
+@{
+    ViewData["Title"] = "Search";
+    
+    // URL search parameters
+    string query = System.Web.HttpUtility.UrlDecode(Request.Query["q"].ToString());
+
+    // Load listings that fit search terms
+    Model.LoadListings(query.Split(" "));
+
+    // ID for logged-in user
+    int userId = -1;
+    
+    // Get user ID if user is logged in
+    if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
+    {
+        userId = JsonConvert.DeserializeObject<User>(HttpContextAccessor.HttpContext.Session.GetString("_User")).UserId;
+    }
+}
+
+<!-- Main form -->
+<main class="form w-100 m-auto text-center container">
+    <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
+        <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Search Results</h1>
+        <!-- Listings -->
+        <div class="listings">
+            @if (Model.listings.Count() > 0)
+            {
+                <!-- Result text -->
+                <div style="margin-bottom: 15px; text-align: left;">
+                    @if (Model.listings.Count() == 1)
+                    {
+                        <i>Showing 1 of 1  result found for "@query"</i>
+                    } else if (Model.listings.Count() < 20)
+                    {
+                        <i>Showing @Model.listings.Count() of @Model.listings.Count() results found for "@query"</i>
+                    } else
+                    {
+                        <i>Showing 20 of @Model.listings.Count() results found for "@query"</i>
+                    }
+
+                </div>
+                <!-- Get 20 most relevant listings -->
+                @foreach (Listing listing in Model.listings.Where(l => !l.IsHidden).Take(20))
+                {
+                    string formattedAddress = "";
+                    @try
+                    {
+                        formattedAddress = @listing.StreetAddress.Replace(' ', '+');
+                    }
+                    catch (Exception ex)
+                    {
+                        // if it does not work, ie no address is given, it will default to the city
+                    }
+                    string website = "http://google.com/maps/dir/?api=1&destination=" + formattedAddress + "+" + @listing.City + "+" + @listing.State + "+" + @listing.ZIPCode;
+
+                    <!-- Listing details -->
+                    <div class="card mb-3" style="text-align:left;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="card-title mt-2" style="margin-left: 10px;">
+                                    @listing.StartDate.ToShortDateString() @listing.StartDate.ToShortTimeString() - @listing.EndDate.ToShortDateString() @listing.EndDate.ToShortTimeString()
+                                    @if (userId > 0)
+                                    {
+                                        // Apply saved badge
+                                        if (Model.db.SavedListings.Where(s => s.UserId == userId && s.ListingId == listing.ListingId).Count() > 0)
+                                        {
+                                            <span class="badge bg-success">Saved</span>
+                                        }
+                                    }
+                                </h5>
+                            </div>
+                            <div class="col-sm-5" style="text-align: right;">
+                                <h6 class="card-subtitle mt-2">
+                                    Posted by @Model.userNames.GetValueOrDefault(listing.ListingId)
+                                </h6>
+                            </div>
+                        </div>
+                        <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
+                            @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                        </h6>
+                        <div class="card-body">
+                            <strong>Description:</strong>
+                            @if (listing.Description.Length > 500)
+                            {
+                                // Shorten description if it is over 500 characters
+                                @string.Format("{0}{1}", listing.Description.Substring(0, 496), "...")
+                            }
+                            else
+                            {
+                                @listing.Description
+                            }
+                        </div>
+                        <!-- Action button panel -->
+                        <div class="card-body" style="text-align: right; padding-top: 0rem;">
+                            <a role="button" class="btn btn-dark btn-sm" href="@website">Route</a>
+                            @if (userId > 0)
+                            {
+                                // Check if listing is saved
+                                if (Model.db.SavedListings.Where(s => s.UserId == userId && s.ListingId == listing.ListingId).Count() > 0)
+                                {
+                                    // Allow saved listings to be unsaved
+                                    @Html.ActionLink("Unsave", "UnsaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark btn-sm", @role="button"})
+                                }
+                                else
+                                {
+                                    // Allow listings to be saved
+                                    @Html.ActionLink("Save", "SaveListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark btn-sm", @role="button"})
+                                }
+                            }
+                            <a role="button" class="btn btn-dark btn-sm" href="@Url.Content("~/listing?id=" + listing.ListingId)">View</a>
+                        </div>
+                    </div>
+                }
+            } else
+            {
+                // Advertise that no listing is found
+                <h5 style="font-style: italic; margin-top: 50px; margin-bottom: 20px;">
+                    No listings founds found for this search term.
+                </h5>
+            }
+            
+        </div>
+    </div>
+</main>

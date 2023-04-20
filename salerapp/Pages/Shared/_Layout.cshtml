@@ -2,6 +2,10 @@
     var PageTitle = (String)ViewData["Title"] ?? "";
     var User = new User();
 
+    // Query string variable
+    var q = "";
+
+    // Get current user from session
     if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
     {
         User = JsonConvert.DeserializeObject<User>(HttpContextAccessor.HttpContext.Session.GetString("_User"));
@@ -24,10 +28,12 @@
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="@Url.Content("~/")"><img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 20px;"></a>
+                <!-- Header links -->
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>
                         <a href="@Url.Content("~/")" class="nav-link px-2 text-white">
                             @{
+                                // Bold current page
                                 if (String.Equals(PageTitle, "Saler"))
                                 {
                                     <text><strong>Home</strong></text>
@@ -42,6 +48,7 @@
                     <li>
                         <a href="@Url.Content("~/About")" class="nav-link px-2 text-white">
                             @{
+                                // Bold current page
                                 if (String.Equals(PageTitle, "About"))
                                 {
                                     <text><strong>About</strong></text>
@@ -56,6 +63,7 @@
                     <li>
                         <a href="@Url.Content("~/Explore")" class="nav-link px-2 text-white">
                             @{
+                                // Bold current page
                                 if (String.Equals(PageTitle, "Explore Listings"))
                                 {
                                     <text><strong>Explore</strong></text>
@@ -68,12 +76,15 @@
                         </a>
                     </li>
                 </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search Listings..." aria-label="Search">
+                <!-- Search bar -->
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="@Url.Content("~/Search?" + q)">
+                    @Html.TextBoxFor(t => q, null, new { @type="search", @class="form-control form-control-dark", @placeholder="Search listings...", @ariaLabel="Search"})
                 </form>
+                <!-- Login/user panel -->
                 @{
                     if (User.LoggedIn)
                     {
+                        // User actions
                         <div class="dropdown">
                             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 @User.UserName
@@ -88,6 +99,7 @@
                     }
                     else
                     {
+                        // Login/registration actions
                         <div class="text-end" id="loggedout-panel">
                             <button type="button" class="btn btn-outline-light me-2" @(String.Equals(PageTitle, "Login") ? "disabled" : String.Empty) onclick="document.location.href='/Login';">Login</button>
                             <button type="button" class="btn btn-warning" @(String.Equals(PageTitle, "Register") ? "disabled" : String.Empty) onclick="document.location.href='/Register';">Sign-up</button>
@@ -97,12 +109,14 @@
             </div>
         </div>
     </header>
+    <!-- Body -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+    <!-- Footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
@@ -111,6 +125,7 @@
         </footer>
     </div>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

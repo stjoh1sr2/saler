@@ -2,6 +2,8 @@
 @model AddListingModel
 @{
     ViewData["Title"] = "Add Listing";
+
+    // Redirect if no user is currently logged in
     if (HttpContextAccessor.HttpContext.Session.GetString("_User") is null)
     {
         Response.Redirect("/");

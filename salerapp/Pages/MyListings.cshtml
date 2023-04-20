@@ -2,6 +2,8 @@
 @model MyListingsModel
 @{
     ViewData["Title"] = "My Listings";
+
+    // Ensure user is logged in, then either load listings or redirect page
     if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
     {
         Model.LoadListings();
@@ -16,6 +18,7 @@
 <main class="form w-100 m-auto text-center container">
     <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">My Listings</h1>
+        <!-- Listings -->
         <div class="listings">
             @if (Model.listings is not null)
             {
@@ -42,6 +45,7 @@
                                 @listing.Description
                             }
                         </div>
+                        <!-- Action button panel -->
                         <div class="card-body" style="text-align: right; padding-top: 0rem;">
                             @if (!listing.IsHidden) 
                             {
@@ -57,6 +61,7 @@
                 }
                 @if (Model.listings.Count() <= 0)
                 {
+                    // Message for users without listings
                     <h5 style="font-style: italic; margin-top: 50px; margin-bottom: 20px;">
                         No listings found...<a href="@Url.Content("~/AddListing")">add one today</a>.
                     </h5>

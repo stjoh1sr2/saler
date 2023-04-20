@@ -2,6 +2,8 @@
 @model RegisterModel
 @{
 	ViewData["Title"] = "Register";
+
+	// Make sure that user is not logged in, else redirect
 	if (HttpContextAccessor.HttpContext.Session.GetString("_User") is not null)
 	{
 		Response.Redirect("/");

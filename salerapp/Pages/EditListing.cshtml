@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Edit Listing";
     Listing listing = new Listing();
+
+    // Redirect if no user is currently logged in; else load listing information
     if (HttpContextAccessor.HttpContext.Session.GetString("_User") is null)
     {
         Response.Redirect("/");
@@ -22,6 +24,7 @@
 
 @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")) is not null)
 {
+    // Ensure current user matches the poster of the listing
     if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == listing.PosterId) {
     <!-- Main form -->
     <main class="form w-100 m-auto text-center container">
@@ -73,6 +76,7 @@
         </main>
     } else
     {
+        // Redirect to home page
         Response.Redirect("/");
     }
 }

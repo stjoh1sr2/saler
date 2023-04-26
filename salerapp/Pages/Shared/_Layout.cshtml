@@ -19,9 +19,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/Images/favicon.ico")">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/salerapp.styles.css" asp-append-version="true" />
+
+    <!-- Bootstrap CSS -->
+    <!-- Inform modern browsers that this page supports both dark and light color schemes,
+      and the page author prefers light. -->
+    <meta name="color-scheme" content="light dark">
+    <script>
+        // If `prefers-color-scheme` is not supported, but media query is, fall back to light mode.
+        // i.e. In this case, inject the `light` CSS before the others, with
+        // no media filter so that it will be downloaded with highest priority.
+        if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
+            document.documentElement.style.display = "none";
+            document.head.insertAdjacentHTML(
+                "beforeend",
+                "<link rel=\"stylesheet\" href=\"~/lib/bootstrap/dist/css/bootstrap.min.css" onload =\"document.documentElement.style.display = ''\">"
+            );
+        }
+    </script>
+    <!-- Load the alternate CSS first ... -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-darkly.css" media="(prefers-color-scheme: dark)">
+    <!-- ... and then the primary CSS last for a fallback on very old browsers that don't support media filtering -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
 </head>
 <body>
     <header class="p-3 text-white" style="background-color: #023D96;">
@@ -90,10 +110,10 @@
                                 @User.UserName
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
-                                <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
+                                <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item"})</li>
                             </ul>
                         </div>
                     }

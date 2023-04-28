@@ -39,7 +39,7 @@ namespace salerapp.Pages
         public void LoadListings(string[] queryWords)
         {
             // Get listings by post date
-            IEnumerable<Listing> tempListings = db.Listings.OrderByDescending(l => l.PostDate);
+            IEnumerable<Listing> tempListings = db.Listings.Where(l => !l.IsHidden).OrderByDescending(l => l.PostDate);
             // Keeps track of the number of keyword hits per listing
             Dictionary<int, int> matchCount = new Dictionary<int, int>();
 

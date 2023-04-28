@@ -32,7 +32,7 @@
                             }
                         </h5>
                         <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
-                            @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                            @listing.StreetAddress, @listing.City, @listing.State @((listing.ZIPCode <= 10000 ? "0" : ""))@listing.ZIPCode
                         </h6>
                         <div class="card-body">
                             <strong>Description:</strong>

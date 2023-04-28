@@ -53,7 +53,7 @@
                     {
                         // if it does not work, ie no address is given, it will default to the city
                     }
-                    string website = "http://google.com/maps/dir/?api=1&destination=" + formattedAddress + "+" + @listing.City + "+" + @listing.State + "+" + @listing.ZIPCode;
+                    string website = "http://google.com/maps/dir/?api=1&destination=" + formattedAddress + "+" + @listing.City + "+" + @listing.State + "+" + (listing.ZIPCode <= 10000 ? "0" : "") + @listing.ZIPCode;
 
                     <!-- Listing details -->
                     <div class="card mb-3" style="text-align:left;">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <h6 class="card-subtitle mt-2" style="margin-left: 10px;">
-                            @listing.StreetAddress, @listing.City, @listing.State @listing.ZIPCode
+                            @listing.StreetAddress, @listing.City, @listing.State @((listing.ZIPCode <= 10000 ? "0" : ""))@listing.ZIPCode
                         </h6>
                         <div class="card-body">
                             <strong>Description:</strong>

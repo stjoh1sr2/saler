@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace salerapp.Models
 {
@@ -72,6 +74,12 @@ namespace salerapp.Models
         /// </summary>
         public string? State { get; set; }
 
+        //[DisplayName("Upload Image")]
+        //public string? FileDetails { get; set; }
+
+        //[NotMapped]
+        //public IFormFile? File { get; set; }
+
         /// <summary>
         /// A list of state abbreviations in alphabetical order of full state name.
         /// </summary>
@@ -81,7 +89,7 @@ namespace salerapp.Models
             "AZ",
             "AR",
             "CA",
-            "CO",
+            "CO", 
             "CT",
             "DE",
             "DC",

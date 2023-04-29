@@ -23,18 +23,26 @@
     <form style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;" method="post">
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Add New Listing</h1>
         <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+
+            <!--Street-->
             <div class="form-floating col-md-5">
                 @Html.TextBoxFor(t => t.Listing.StreetAddress, new {@type = "text", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="streetaddress" style="margin-left: 10px;">Street Address *</label>
             </div>
+
+            <!--City-->
             <div class="form-floating col-md-3">
                 @Html.TextBoxFor(t => t.Listing.City, new {@type = "text", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="city" style="margin-left: 10px;">City *</label>
             </div>
+
+            <!--State-->
             <div class="form-floating col-md-2">
                 @Html.DropDownListFor(t => t.Listing.State, Model.StateOptions, "", htmlAttributes: new {@type = "text", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="state" style="margin-left: 10px;">State *</label>
             </div>
+
+            <!--Zip-->
             <div class="form-floating col-md-2">
                 @Html.TextBoxFor(t => t.Listing.ZIPCode, htmlAttributes: new {@type = "number", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="zip" style="margin-left: 10px;">ZIP Code *</label>
@@ -42,16 +50,21 @@
         </div>
 
         <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+
+            <!--Start Date-->
             <div class="form-floating col-md-6">
                 @Html.TextBoxFor(t => t.Listing.StartDate, new {@type = "datetime-local", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="startdate" style="margin-left: 10px;">Start Date *</label>
             </div>
+
+            <!--End Date-->
             <div class="form-floating col-md-6">
                 @Html.TextBoxFor(t => t.Listing.EndDate, new {@type = "datetime-local", @class = "form-control", @id = "floatingInput", @required = "true"})
                 <label for="enddate" style="margin-left: 10px;">End Date *</label>
             </div>
         </div>
 
+        <!--Description-->
         <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
             <div class="form-floating col-md-12">
                 @Html.TextAreaFor(t => t.Listing.Description, new {@type = "text", @class = "form-control", @id = "floatingInput", @required = "true", @style = "min-height:250px;"})
@@ -59,6 +72,21 @@
             </div>
         </div>
 
+        <!--Image-->
+        @*<div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+            @using (Html.BeginForm("SavePicture", "Home", FormMethod.Post, new {enctype = " multipart/form-data"}))
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div>
+                @Html.LabelFor(t=>t.Listing.FileDetails, new {@class="form-label"})
+                </div>
+                <div>
+                @Html.EditorFor(t=>t.Listing.File, new {@class="form-control"})
+                </div>
+            </div>
+            <button type="submit"  class="btn btn-primary">Upload</button>
+        </div>*@
         <button class="w-100 btn btn-lg btn-primary" style="margin-top: 5px;" type="submit">Add Listing</button>
     </form>
 </main>

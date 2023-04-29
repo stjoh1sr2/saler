@@ -22,12 +22,33 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/salerapp.styles.css" asp-append-version="true" />
+
+    <!-- Bootstrap CSS -->
+    <!-- Inform modern browsers that this page supports both dark and light color schemes,
+      and the page author prefers light. -->
+    <meta name="color-scheme" content="light dark">
+    <script>
+        // If `prefers-color-scheme` is not supported, but media query is, fall back to light mode.
+        // i.e. In this case, inject the `light` CSS before the others, with
+        // no media filter so that it will be downloaded with highest priority.
+        if (window.matchMedia("(prefers-color-scheme: dark)").media === "not all") {
+            document.documentElement.style.display = "none";
+            document.head.insertAdjacentHTML(
+                "beforeend",
+                "<link rel=\"stylesheet\" href=\"~/lib/bootstrap/dist/css/bootstrap.min.css" onload =\"document.documentElement.style.display = ''\">"
+            );
+        }
+    </script>
+    <!-- Load the alternate CSS first ... -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-darkly.css" media="(prefers-color-scheme: dark)">
+    <!-- ... and then the primary CSS last for a fallback on very old browsers that don't support media filtering -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
 </head>
 <body>
     <header class="p-3 text-white" style="background-color: #023D96;">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="@Url.Content("~/")"><img src="@Url.Content("~/Images/saler-vert.png")" width="45px" style="margin-right: 20px;"></a>
+                <a href="@Url.Content("~/")"><img src="@Url.Content("~/Images/saler-vert.png")" width="45" style="margin-right: 20px;"></a>
                 <!-- Header links -->
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li>

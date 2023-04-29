@@ -21,7 +21,7 @@
         @warning
     </div>
 }
-
+@try {
 @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")) is not null)
 {
     // Ensure current user matches the poster of the listing
@@ -79,4 +79,7 @@
         // Redirect to home page
         Response.Redirect("/");
     }
+}
+} catch (ArgumentNullException) {
+    Response.Redirect("/");
 }

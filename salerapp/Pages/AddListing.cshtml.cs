@@ -39,6 +39,7 @@ namespace salerapp.Pages
         /// </summary>
         /// <param name="listing">The listing to be added.</param>
         /// <returns>A redirect to the page of the new listing, or home page if an error occurred.</returns>
+        [ValidateAntiForgeryToken]
         public IActionResult OnPost(Listing listing)
         {
             if (listing != null)
@@ -57,6 +58,10 @@ namespace salerapp.Pages
                     // Add listing
                     db.Listings.Add(listing);
                     db.SaveChanges();
+
+                    //if (listing.Images != null) {
+                        // do the image upload to the database
+                    //}
 
                     // Redirect to listing page
                     return Redirect("~/listing?id=" + listing.ListingId);

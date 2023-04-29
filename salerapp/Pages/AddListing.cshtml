@@ -59,6 +59,21 @@
             </div>
         </div>
 
+        <!--Image-->
+        @*<div class="row" style="margin-top: 5px; margin-bottom: 5px;">
+            @using (Html.BeginForm("SavePicture", "Home", FormMethod.Post, new {enctype = " multipart/form-data"}))
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div>
+                @Html.LabelFor(t=>t.Listing.FileDetails, new {@class="form-label"})
+                </div>
+                <div>
+                @Html.EditorFor(t=>t.Listing.File, new {@class="form-control"})
+                </div>
+            </div>
+            <button type="submit"  class="btn btn-primary">Upload</button>
+        </div>*@
         <button class="w-100 btn btn-lg btn-primary" style="margin-top: 5px;" type="submit">Add Listing</button>
     </form>
 </main>

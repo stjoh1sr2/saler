@@ -52,10 +52,21 @@ namespace salerapp.Pages
                 foreach (string queryWord in queryWords)
                 {
                     // Filter out common words
-                    if (!commonWords.Contains(queryWord.ToLower()) && tempListing.Description.ToLower().Contains(queryWord.ToLower()))
+                    if (!commonWords.Contains(queryWord.ToLower()))
                     {
-                        // Add to count if match was hit
-                        matchCount[tempListing.ListingId] = matchCount.GetValueOrDefault(tempListing.ListingId) + 1;
+                        bool descriptionHit = tempListing.Description.ToLower().Contains(queryWord.ToLower());
+                        bool cityHit = tempListing.City.ToLower().Contains(queryWord.ToLower());
+                        bool stateHit = tempListing.State.ToLower().Contains(queryWord.ToLower());
+                        if (descriptionHit || stateHit)
+                        {
+                           // Add to count 1 if match was hit for description or state
+                           matchCount[tempListing.ListingId] = matchCount.GetValueOrDefault(tempListing.ListingId) + 1;
+                        }
+                        if (cityHit)
+                        {
+                            // Add to count 3 if match was hit for city (to weigh city higher in search)
+                            matchCount[tempListing.ListingId] = matchCount.GetValueOrDefault(tempListing.ListingId) + 3;
+                        }
                     }
                 }
             }

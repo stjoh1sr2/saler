@@ -41,7 +41,7 @@ namespace salerapp.Pages
                 // Send saved listings to page view
                 if (savedIds is not null)
                 {
-                    listings = db.Listings.Where(l => savedIds.Contains(l.ListingId));
+                    listings = db.Listings.Where(l => savedIds.Contains(l.ListingId)).Where(l => !l.IsHidden);
                 }
             }
         }

@@ -6,6 +6,10 @@
 
 <!-- Main info area -->
 <div class="px-4 py-5 my-5 text-center">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
     <h1 class="display-5 fw-bold" style="margin-bottom: 2%;">Saling, Simplified</h1>
     <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">Garage Saler is a website for garage sale hosts and potential customers. Users will be able to go on the website to view different garage sale listings. This project will also allow for users to host ads of their own garage sales. When viewing available listings, users can add them to a cart feature, from which the website can generate the most efficient route for the user to travel to each of the sales they chose. We aim to modernize the experience of garage sale hunting.</p>

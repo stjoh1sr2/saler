@@ -13,15 +13,6 @@ namespace salerapp.Pages
         /// The context linking the application to the Saler database.
         /// </summary>
         public SalerContext db = new SalerContext();
-        /// <summary>
-        /// Retrieves the details of the original listing.
-        /// </summary>
-        /// <param name="id">The listing ID of the original listing.</param>
-        /// <returns>The desired listing and its details.</returns>
-        public Listing LoadListing(int id)
-        {
-            return db.Listings.Where(l => l.ListingId == id).FirstOrDefault();
-        }
 
         public IActionResult OnPost()
         {

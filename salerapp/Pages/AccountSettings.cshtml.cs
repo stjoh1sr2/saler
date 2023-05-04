@@ -103,11 +103,5 @@ namespace salerapp.Pages
             }
             return Page();
         }
-
-        public IActionResult OnPostDeleteAccount()
-        {
-            return Redirect("DeleteAccount");
-        }
-
     }
 }

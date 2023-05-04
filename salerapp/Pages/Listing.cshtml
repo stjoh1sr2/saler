@@ -121,6 +121,7 @@
                                         @Html.ActionLink("Unhide", "ToggleHideListing", "Listing", new { listing.ListingId }, new {@class="btn btn-dark", @role="button"})
                                     }
                                     <a role="button" class="btn btn-dark" href="@Url.Content("~/editlisting?id=" + listing.ListingId)">Edit</a>
+                                    <a role="button" class="btn btn-dark" href="@Url.Content("~/deletelisting?id=" + listing.ListingId)">Delete</a>
 
                                 }
                                 else if (!isSaved)

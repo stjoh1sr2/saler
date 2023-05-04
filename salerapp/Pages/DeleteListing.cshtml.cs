@@ -44,6 +44,7 @@ namespace salerapp.Pages
                 // Update listing information that could've changed
                 db.Listings.Remove(currentListing);
                 TempData["Message"] = "Listing Deleted Successfully";
+                TempData.Keep();
 
                 db.SaveChanges();
                 return Redirect("~/MyListings");

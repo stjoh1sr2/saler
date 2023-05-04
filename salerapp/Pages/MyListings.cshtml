@@ -16,6 +16,10 @@
 
 <!-- Main form -->
 <main class="form w-100 m-auto text-center container">
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
     <div style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;">
         <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">My Listings</h1>
         <!-- Listings -->

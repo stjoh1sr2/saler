@@ -3044,18 +3044,18 @@ textarea.form-control-lg {
 .btn-outline-secondary {
     --bs-btn-color: #fff;
     --bs-btn-border-color: #fff;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #444;
-    --bs-btn-hover-border-color: #444;
-    --bs-btn-focus-shadow-rgb: 68, 68, 68;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #444;
-    --bs-btn-active-border-color: #444;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #444;
-    --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #444;
-    --bs-gradient: none;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #444;
+  --bs-btn-hover-border-color: #444;
+  --bs-btn-focus-shadow-rgb: 68, 68, 68;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #444;
+  --bs-btn-active-border-color: #444;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #444;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #444;
+  --bs-gradient: none;
 }
 
 .btn-outline-success {

@@ -19,7 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="icon" type="image/x-icon" href="@Url.Content("~/Images/favicon.ico")">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/salerapp.styles.css" asp-append-version="true" />
 
@@ -111,10 +110,10 @@
                                 @User.UserName
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
-                                <li><a class="dropdown-item" style="color: black;" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
-                                <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item", @style="color: black;"})</li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
+                                <li><a class="dropdown-item" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
+                                <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item"})</li>
                             </ul>
                         </div>
                     }

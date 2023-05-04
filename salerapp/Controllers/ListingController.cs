@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -101,5 +102,22 @@ namespace salerapp.Controllers
             // Redirect to current page
             return Redirect(HttpContext.Request.Headers["Referer"].ToString());
         }
+
+        //[HttpPost]
+        //public IActionResult SavePicture(ListingModel)
+        //{
+        //    if (file != null && file.Length > 0)
+        //    {
+        //        var fileName = Path.GetFileName(file.FileName);
+        //        var blobContainer = new BlobContainerClient(Configuration.GetConnectionString("AzureStorageAccount"), "images");
+        //        var blobClient = blobContainer.GetBlobClient(fileName);
+        //        using (var stream = file.OpenReadStream())
+        //        {
+        //            await blobClient.UploadAsync(stream);
+        //        }
+        //    }
+
+        //    return RedirectToPage("/AddListing");
+        //}
     }
 }

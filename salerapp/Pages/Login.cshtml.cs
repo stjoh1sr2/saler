@@ -41,7 +41,7 @@ namespace salerapp.Pages
         /// <returns>A redirect.</returns>
         public IActionResult OnPost(String identification, String password)
         {
-            // Ensure username or email existings in the database
+            // Ensure username or email exists in the database
             if (db.Users.Where(u => String.Equals(u.Email, identification)).Count() > 0 ||
                 db.Users.Where(u => String.Equals(u.UserName, identification)).Count() > 0)
             {

@@ -50,6 +50,7 @@ namespace salerapp.Pages
                     db.SavedListings.Remove(sl);
                 }
                 TempData["Message"] = "Listing Deleted Successfully";
+                TempData.Keep();
 
                 db.SaveChanges();
                 return Redirect("~/MyListings");

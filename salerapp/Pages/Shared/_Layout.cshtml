@@ -113,6 +113,7 @@
                                                 <li><a class="dropdown-item" href="@Url.Content("~/AddListing")" )>Add Listing</a></li>
                                                 <li><a class="dropdown-item" href="@Url.Content("~/MyListings")" )>View My Listings</a></li>
                                                 <li><a class="dropdown-item" href="@Url.Content("~/SavedListings")" )>Saved Listings</a></li>
+                                                <li><a class="dropdown-item" href="@Url.Content("~/AccountSettings")")>Account Settings</a></li>
                                                 <li>@Html.ActionLink("Log Out", "LogOut", "User", new {}, new {@class="dropdown-item"})</li>
                                             </ul>
                                         </div>
@@ -155,7 +156,27 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            // Use AJAX to update the username in the navigation bar when the user changes their username
+            $(document).on('submit', '#account-settings-form', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        $('#dropdownMenuButton1').text(result.username);
+                    },
+                    error: function () {
+                        alert('There was an error updating your username. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

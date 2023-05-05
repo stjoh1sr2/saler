@@ -15,7 +15,7 @@ This application requires .NET 6 support to run.
 The major features implemented in this application are:
 * Create an account and log in
 * Create garage sale listings
-* Hide or edit your listings
+* Hide, remove, and edit your listings
 * Save interesting listings for later
 * Search for listings
 * Create a route from your location to a listing

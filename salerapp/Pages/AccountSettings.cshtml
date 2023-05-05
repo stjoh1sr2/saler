@@ -18,33 +18,36 @@
 <!-- Warning messages -->
 @foreach (var warning in Model.warnings)
 {
-    <div class="alert alert-danger" role="alert" style="margin: 10px; margin-left: 27.5%; margin-right: 27.5%;">
+    <div class="alert alert-danger" role="alert" style="margin-top: 5%; margin-left: 27.5%; margin-right: 27.5%;">
         @warning
     </div>
 }
-@try {
+@try
+{
     @if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")) is not null)
     {
         // Ensure current user matches the poster of the listing
         if (JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("_User")).UserId == user.UserId)
         {
-            @if (TempData["Message"] != null)
-            {
-                <div class="alert alert-success">@TempData["Message"]</div>
-            }
+            <div style="margin-left: 27.5%; margin-right: 27.5%; margin-top: 5%;">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Message"]</div>
+                }
+            </div>
             <!-- Main form -->
             <main class="form w-100 m-auto text-center container">
-                <form id="changeUsername" style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;" method="post" asp-page-handler="Username">
-                    <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left;">Account Settings</h1>
-                    <h3>Change Username</h3>
+                <h1 class="display-6 fw-bold lh-1 mb-4" style="text-align:left; margin-left: 27.5%">Account Settings</h1>
+                <form id="changeUsername" style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;" method="post" asp-page-handler="Username">
+                    <h3 style="margin-bottom:15px;">Change Username</h3>
                     <div class="form-floating" style="margin: 5px;">
                         @(Html.TextBoxFor(t => user.UserName, new { @type = "text", @class = "form-control", @id = "floatingInput", @required = "true" }))
                         <label for="username">New Username *</label>
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" style="margin-top: 5px;" type="submit">Update Username</button>
                 </form>
-                <form id="changePassword" style="margin-left: 12.5%; margin-right: 12.5%; margin-top: 5%;" method="post" asp-page-handler="Password">
-
+                <form id="changePassword" style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;" method="post" asp-page-handler="Password">
+                    <h3 style="margin-bottom:15px;">Change Password</h3>
                     <div class="form-floating" style="margin: 5px;">
                         @(Html.PasswordFor(t => t.CurrentPassword, new { @class = "form-control", @id = "floatingInput", @required = "true", @value = "" }))
                         <label for="currentPassword">Current Password *</label>
@@ -56,8 +59,10 @@
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" style="margin-top: 5px;" type="submit">Update Password</button>
                 </form>
-                <br/>
-                <a role="button" class="w-100 btn btn-lg btn-danger" href="@Url.Content("/DeleteAccount")">Delete Account</a>
+                <br />
+                <div style="margin-left: 37.5%; margin-right: 37.5%; margin-top: 5%;">
+                    <a role="button" class="w-100 btn btn-lg btn-danger" href="@Url.Content("/DeleteAccount")">Delete Account</a>
+                </div>
 
                 <script>
                     $(document).ready(function () {

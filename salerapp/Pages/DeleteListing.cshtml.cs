@@ -41,8 +41,14 @@ namespace salerapp.Pages
             else
             {
 
-                // Update listing information that could've changed
+                // Remove listing information that could've changed
                 db.Listings.Remove(currentListing);
+                // Remove saved listings relationships
+                var savedListings = db.SavedListings.Where(l => l.ListingId == currentListing.ListingId).ToList();
+                foreach (SavedListing sl in savedListings)
+                {
+                    db.SavedListings.Remove(sl);
+                }
                 TempData["Message"] = "Listing Deleted Successfully";
                 TempData.Keep();
 
